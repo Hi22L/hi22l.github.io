@@ -1,391 +1,682 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hiba Lafkir — Portfolio</title>
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --bg: #ffffff;
-      --bg-secondary: #f7f7f5;
-      --text: #1a1a1a;
-      --text-muted: #6b6b6b;
-      --text-faint: #9b9b9b;
-      --border: rgba(0,0,0,0.1);
-      --border-hover: rgba(0,0,0,0.2);
-      --blue-bg: #E6F1FB;
-      --blue-text: #0C447C;
-      --teal-bg: #E1F5EE;
-      --teal-text: #085041;
-      --radius-md: 8px;
-      --radius-lg: 12px;
-    }
-
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --bg: #1a1a1a;
-        --bg-secondary: #242424;
-        --text: #f0f0f0;
-        --text-muted: #a0a0a0;
-        --text-faint: #6b6b6b;
-        --border: rgba(255,255,255,0.1);
-        --border-hover: rgba(255,255,255,0.2);
-        --blue-bg: #0C447C;
-        --blue-text: #B5D4F4;
-        --teal-bg: #085041;
-        --teal-text: #9FE1CB;
-      }
-    }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      font-size: 16px;
-      line-height: 1.7;
-    }
-
-    .container {
-      max-width: 720px;
-      margin: 0 auto;
-      padding: 2rem 1.5rem 4rem;
-    }
-
-    /* Hero */
-    .hero {
-      padding: 3.5rem 0 2.5rem;
-      border-bottom: 0.5px solid var(--border);
-      margin-bottom: 2.5rem;
-    }
-
-    .avatar {
-      width: 56px;
-      height: 56px;
-      border-radius: 50%;
-      background: var(--blue-bg);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
-      font-weight: 500;
-      color: var(--blue-text);
-      margin-bottom: 1.25rem;
-    }
-
-    .hero h1 {
-      font-size: 24px;
-      font-weight: 500;
-      margin-bottom: 0.3rem;
-    }
-
-    .hero .role {
-      font-size: 15px;
-      color: var(--text-muted);
-      margin-bottom: 1rem;
-    }
-
-    .hero .bio {
-      font-size: 15px;
-      line-height: 1.75;
-      color: var(--text-muted);
-      max-width: 540px;
-    }
-
-    .tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 1.25rem;
-    }
-
-    .tag {
-      font-size: 12px;
-      padding: 4px 10px;
-      border-radius: var(--radius-md);
-      background: var(--bg-secondary);
-      border: 0.5px solid var(--border);
-      color: var(--text-muted);
-    }
-
-    /* Section */
-    .section-title {
-      font-size: 12px;
-      font-weight: 500;
-      color: var(--text-faint);
-      text-transform: uppercase;
-      letter-spacing: 0.07em;
-      margin-bottom: 1rem;
-    }
-
-    /* Cards */
-    .projects {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      margin-bottom: 2.5rem;
-    }
-
-    .card {
-      background: var(--bg);
-      border: 0.5px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 1.4rem;
-      transition: border-color 0.15s;
-    }
-
-    .card:hover { border-color: var(--border-hover); }
-
-    .card-header {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 1rem;
-      margin-bottom: 0.75rem;
-    }
-
-    .card-title {
-      font-size: 16px;
-      font-weight: 500;
-    }
-
-    .badge {
-      font-size: 11px;
-      padding: 3px 10px;
-      border-radius: var(--radius-md);
-      white-space: nowrap;
-      flex-shrink: 0;
-    }
-
-    .badge-blue { background: var(--blue-bg); color: var(--blue-text); }
-    .badge-teal { background: var(--teal-bg); color: var(--teal-text); }
-
-    .card-desc {
-      font-size: 14px;
-      color: var(--text-muted);
-      line-height: 1.7;
-      margin-bottom: 1rem;
-    }
-
-    .metrics {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-      gap: 8px;
-      margin-bottom: 1rem;
-    }
-
-    .metric {
-      background: var(--bg-secondary);
-      border-radius: var(--radius-md);
-      padding: 0.65rem 0.8rem;
-    }
-
-    .metric-val {
-      font-size: 16px;
-      font-weight: 500;
-    }
-
-    .metric-label {
-      font-size: 11px;
-      color: var(--text-faint);
-      margin-top: 2px;
-    }
-
-    .card-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-    }
-
-    .card-tag {
-      font-size: 11px;
-      padding: 3px 8px;
-      border-radius: var(--radius-md);
-      background: var(--bg-secondary);
-      color: var(--text-muted);
-      border: 0.5px solid var(--border);
-    }
-
-    /* GitHub link on card */
-    .card-footer {
-      display: flex;
-      justify-content: flex-end;
-      margin-top: 1rem;
-      padding-top: 0.75rem;
-      border-top: 0.5px solid var(--border);
-    }
-
-    .card-link {
-      font-size: 13px;
-      color: var(--text-muted);
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .card-link:hover { color: var(--text); }
-
-    /* Divider */
-    hr {
-      border: none;
-      border-top: 0.5px solid var(--border);
-      margin: 2rem 0;
-    }
-
-    /* Contact */
-    .contact { margin-bottom: 2rem; }
-
-    .contact-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 0.75rem;
-    }
-
-    .link-btn {
-      font-size: 13px;
-      padding: 8px 16px;
-      border-radius: var(--radius-md);
-      border: 0.5px solid var(--border-hover);
-      color: var(--text);
-      text-decoration: none;
-      background: var(--bg);
-      cursor: pointer;
-      transition: background 0.15s;
-    }
-
-    .link-btn:hover { background: var(--bg-secondary); }
-
-    /* Footer */
-    .footer {
-      font-size: 12px;
-      color: var(--text-faint);
-      padding-top: 1.5rem;
-      border-top: 0.5px solid var(--border);
-    }
-
-    @media (max-width: 480px) {
-      .hero { padding: 2rem 0 2rem; }
-      .card-header { flex-direction: column; gap: 0.5rem; }
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Hiba Lafkir — Portfolio</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+--bg: #ffffff;
+--bg-secondary: #f7f7f5;
+--text: #1a1a1a;
+--text-muted: #6b6b6b;
+--text-faint: #9b9b9b;
+--border: rgba(0,0,0,0.1);
+--border-hover: rgba(0,0,0,0.2);
+--blue-bg: #E6F1FB;
+--blue-text: #0C447C;
+--teal-bg: #E1F5EE;
+--teal-text: #085041;
+--purple-bg: #F1E9FB;
+--purple-text: #5B2A9C;
+--amber-bg: #FBF0DE;
+--amber-text: #8A5A0C;
+--rose-bg: #FBE9EE;
+--rose-text: #9C2A4E;
+--radius-md: 8px;
+--radius-lg: 12px;
+}
+@media (prefers-color-scheme: dark) {
+:root {
+--bg: #1a1a1a;
+--bg-secondary: #242424;
+--text: #f0f0f0;
+--text-muted: #a0a0a0;
+--text-faint: #6b6b6b;
+--border: rgba(255,255,255,0.1);
+--border-hover: rgba(255,255,255,0.2);
+--blue-bg: #0C447C;
+--blue-text: #B5D4F4;
+--teal-bg: #085041;
+--teal-text: #9FE1CB;
+--purple-bg: #5B2A9C;
+--purple-text: #DCC8F5;
+--amber-bg: #8A5A0C;
+--amber-text: #F5DFB0;
+--rose-bg: #9C2A4E;
+--rose-text: #F5C6D3;
+}
+}
+body {
+font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+background: var(--bg);
+color: var(--text);
+font-size: 16px;
+line-height: 1.7;
+}
+.container {
+max-width: 720px;
+margin: 0 auto;
+padding: 2rem 1.5rem 4rem;
+}
+/* Hero */
+.hero {
+padding: 3.5rem 0 2.5rem;
+border-bottom: 0.5px solid var(--border);
+margin-bottom: 2.5rem;
+}
+.avatar {
+width: 56px;
+height: 56px;
+border-radius: 50%;
+background: var(--blue-bg);
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 18px;
+font-weight: 500;
+color: var(--blue-text);
+margin-bottom: 1.25rem;
+}
+.hero h1 {
+font-size: 24px;
+font-weight: 500;
+margin-bottom: 0.3rem;
+}
+.hero .role {
+font-size: 15px;
+color: var(--text-muted);
+margin-bottom: 1rem;
+}
+.hero .bio {
+font-size: 15px;
+line-height: 1.75;
+color: var(--text-muted);
+max-width: 540px;
+}
+.tags {
+display: flex;
+flex-wrap: wrap;
+gap: 8px;
+margin-top: 1.25rem;
+}
+.tag {
+font-size: 12px;
+padding: 4px 10px;
+border-radius: var(--radius-md);
+background: var(--bg-secondary);
+border: 0.5px solid var(--border);
+color: var(--text-muted);
+}
+/* Section */
+.section-title {
+font-size: 12px;
+font-weight: 500;
+color: var(--text-faint);
+text-transform: uppercase;
+letter-spacing: 0.07em;
+margin-bottom: 1rem;
+}
+/* Cards */
+.projects {
+display: flex;
+flex-direction: column;
+gap: 1rem;
+margin-bottom: 2.5rem;
+}
+.card {
+background: var(--bg);
+border: 0.5px solid var(--border);
+border-radius: var(--radius-lg);
+padding: 1.4rem;
+transition: border-color 0.15s;
+}
+.card:hover { border-color: var(--border-hover); }
+.card-header {
+display: flex;
+align-items: flex-start;
+justify-content: space-between;
+gap: 1rem;
+margin-bottom: 0.75rem;
+}
+.card-title {
+font-size: 16px;
+font-weight: 500;
+}
+.badge {
+font-size: 11px;
+padding: 3px 10px;
+border-radius: var(--radius-md);
+white-space: nowrap;
+flex-shrink: 0;
+}
+.badge-blue { background: var(--blue-bg); color: var(--blue-text); }
+.badge-teal { background: var(--teal-bg); color: var(--teal-text); }
+.badge-purple { background: var(--purple-bg); color: var(--purple-text); }
+.badge-amber { background: var(--amber-bg); color: var(--amber-text); }
+.badge-rose { background: var(--rose-bg); color: var(--rose-text); }
+.card-desc {
+font-size: 14px;
+color: var(--text-muted);
+line-height: 1.7;
+margin-bottom: 1rem;
+}
+.metrics {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+gap: 8px;
+margin-bottom: 1rem;
+}
+.metric {
+background: var(--bg-secondary);
+border-radius: var(--radius-md);
+padding: 0.65rem 0.8rem;
+}
+.metric-val {
+font-size: 16px;
+font-weight: 500;
+}
+.metric-label {
+font-size: 11px;
+color: var(--text-faint);
+margin-top: 2px;
+}
+.card-tags {
+display: flex;
+flex-wrap: wrap;
+gap: 6px;
+}
+.card-tag {
+font-size: 11px;
+padding: 3px 8px;
+border-radius: var(--radius-md);
+background: var(--bg-secondary);
+color: var(--text-muted);
+border: 0.5px solid var(--border);
+}
+/* GitHub link on card */
+.card-footer {
+display: flex;
+justify-content: flex-end;
+margin-top: 1rem;
+padding-top: 0.75rem;
+border-top: 0.5px solid var(--border);
+}
+.card-link {
+font-size: 13px;
+color: var(--text-muted);
+text-decoration: none;
+display: flex;
+align-items: center;
+gap: 4px;
+}
+.card-link:hover { color: var(--text); }
+/* Architecture diagrams */
+.arch-diagram { margin: 0.9rem 0 1.1rem; }
+.arch-diagram svg { width: 100%; height: auto; display: block; }
+.arch-label { font-size: 10.5px; font-weight: 500; }
+/* Skills radar */
+.radar-section { margin-bottom: 2.5rem; }
+.radar-wrap { display: flex; justify-content: center; }
+.radar-wrap svg { width: 100%; max-width: 300px; height: auto; display: block; }
+.radar-label { font-size: 11.5px; font-weight: 500; fill: var(--text-muted); }
+/* Divider */
+hr {
+border: none;
+border-top: 0.5px solid var(--border);
+margin: 2rem 0;
+}
+/* Contact */
+.contact { margin-bottom: 2rem; }
+.contact-links {
+display: flex;
+flex-wrap: wrap;
+gap: 10px;
+margin-top: 0.75rem;
+}
+.link-btn {
+font-size: 13px;
+padding: 8px 16px;
+border-radius: var(--radius-md);
+border: 0.5px solid var(--border-hover);
+color: var(--text);
+text-decoration: none;
+background: var(--bg);
+cursor: pointer;
+transition: background 0.15s;
+}
+.link-btn:hover { background: var(--bg-secondary); }
+/* Footer */
+.footer {
+font-size: 12px;
+color: var(--text-faint);
+padding-top: 1.5rem;
+border-top: 0.5px solid var(--border);
+}
+@media (max-width: 480px) {
+.hero { padding: 2rem 0 2rem; }
+.card-header { flex-direction: column; gap: 0.5rem; }
+}
+</style>
 </head>
 <body>
-  <div class="container">
+<div class="container">
+<!-- Hero -->
+<div class="hero">
+<div class="avatar">HL</div>
+<h1>Hiba Lafkir</h1>
+<p class="role">Data Science Student</p>
+<p class="bio">
+Passionate about AI and big data tools, I enjoy building machine learning solutions that solve real-world problems — from predicting real estate prices in Casablanca to detecting skin lesions with deep learning. Always learning, always building.
+</p>
+<div class="tags">
+<span class="tag">Python</span>
+<span class="tag">Machine Learning</span>
+<span class="tag">Deep Learning</span>
+<span class="tag">Computer Vision</span>
+<span class="tag">NLP</span>
+<span class="tag">Big Data</span>
+<span class="tag">scikit-learn</span>
+<span class="tag">PyTorch</span>
+</div>
+</div>
 
-    <!-- Hero -->
-    <div class="hero">
-      <div class="avatar">HL</div>
-      <h1>Hiba Lafkir</h1>
-      <p class="role">Data Science Student</p>
-      <p class="bio">
-        Passionate about AI and big data tools, I enjoy building machine learning solutions that solve real-world problems — from predicting real estate prices in Casablanca to detecting skin lesions with deep learning. Always learning, always building.
-      </p>
-      <div class="tags">
-        <span class="tag">Python</span>
-        <span class="tag">Machine Learning</span>
-        <span class="tag">Deep Learning</span>
-        <span class="tag">Computer Vision</span>
-        <span class="tag">scikit-learn</span>
-        <span class="tag">PyTorch</span>
-        <span class="tag">Big Data</span>
-      </div>
-    </div>
+<!-- Skills Radar -->
+<div class="radar-section">
+<div class="section-title">Skills</div>
+<div class="radar-wrap">
+<svg viewBox="0 0 300 300">
+<!-- grid rings -->
+<polygon points="150.0,130.0 167.3,140.0 167.3,160.0 150.0,170.0 132.7,160.0 132.7,140.0" fill="none" stroke="var(--border)" stroke-width="1"/>
+<polygon points="150.0,110.0 184.6,130.0 184.6,170.0 150.0,190.0 115.4,170.0 115.4,130.0" fill="none" stroke="var(--border)" stroke-width="1"/>
+<polygon points="150.0,90.0 202.0,120.0 202.0,180.0 150.0,210.0 98.0,180.0 98.0,120.0" fill="none" stroke="var(--border)" stroke-width="1"/>
+<polygon points="150.0,70.0 219.3,110.0 219.3,190.0 150.0,230.0 80.7,190.0 80.7,110.0" fill="none" stroke="var(--border)" stroke-width="1"/>
+<polygon points="150.0,50.0 236.6,100.0 236.6,200.0 150.0,250.0 63.4,200.0 63.4,100.0" fill="none" stroke="var(--border)" stroke-width="1.2"/>
+<!-- axis lines -->
+<line x1="150" y1="150" x2="150.0" y2="50.0" stroke="var(--border)" stroke-width="1"/>
+<line x1="150" y1="150" x2="236.6" y2="100.0" stroke="var(--border)" stroke-width="1"/>
+<line x1="150" y1="150" x2="236.6" y2="200.0" stroke="var(--border)" stroke-width="1"/>
+<line x1="150" y1="150" x2="150.0" y2="250.0" stroke="var(--border)" stroke-width="1"/>
+<line x1="150" y1="150" x2="63.4" y2="200.0" stroke="var(--border)" stroke-width="1"/>
+<line x1="150" y1="150" x2="63.4" y2="100.0" stroke="var(--border)" stroke-width="1"/>
+<!-- data polygon -->
+<polygon points="150.0,50.0 236.6,100.0 219.3,190.0 150.0,230.0 80.7,190.0 80.7,110.0" fill="var(--blue-bg)" stroke="var(--blue-text)" stroke-width="2" opacity="0.9"/>
+<circle cx="150.0" cy="50.0" r="3" fill="var(--blue-text)"/>
+<circle cx="236.6" cy="100.0" r="3" fill="var(--blue-text)"/>
+<circle cx="219.3" cy="190.0" r="3" fill="var(--blue-text)"/>
+<circle cx="150.0" cy="230.0" r="3" fill="var(--blue-text)"/>
+<circle cx="80.7" cy="190.0" r="3" fill="var(--blue-text)"/>
+<circle cx="80.7" cy="110.0" r="3" fill="var(--blue-text)"/>
+<!-- labels -->
+<text x="150.0" y="20.0" text-anchor="middle" class="radar-label">Python</text>
+<text x="258.3" y="83.5" text-anchor="start" class="radar-label">Machine Learning</text>
+<text x="258.3" y="216.5" text-anchor="start" class="radar-label">Deep Learning</text>
+<text x="150.0" y="290.0" text-anchor="middle" class="radar-label">NLP</text>
+<text x="41.7" y="216.5" text-anchor="end" class="radar-label">Big Data</text>
+<text x="41.7" y="83.5" text-anchor="end" class="radar-label">SQL &amp; Data Eng</text>
+</svg>
+</div>
+</div>
 
-    <!-- Projects -->
-    <div class="section-title">Projects</div>
-    <div class="projects">
+<!-- Projects -->
+<div class="section-title">Projects</div>
+<div class="projects">
 
-      <!-- Regression -->
-      <div class="card">
-        <div class="card-header">
-          <span class="card-title">Casablanca House Price Prediction</span>
-          <span class="badge badge-blue">Regression</span>
-        </div>
-        <p class="card-desc">
-          Predicts apartment and house prices in Casablanca from scraped real estate listings. Built a full ML pipeline with regex-based feature extraction, neighborhood price signals, and a Stacking Regressor combining Linear Regression, Ridge, and Decision Tree models. Includes an interactive Streamlit app for live predictions.
-        </p>
-        <div class="metrics">
-          <div class="metric">
-            <div class="metric-val">Stacking</div>
-            <div class="metric-label">Best model</div>
-          </div>
-          <div class="metric">
-            <div class="metric-val">MAE</div>
-            <div class="metric-label">Optimized metric</div>
-          </div>
-          <div class="metric">
-            <div class="metric-val">5-fold CV</div>
-            <div class="metric-label">Validation strategy</div>
-          </div>
-        </div>
-        <div class="card-tags">
-          <span class="card-tag">pandas</span>
-          <span class="card-tag">scikit-learn</span>
-          <span class="card-tag">Streamlit</span>
-          <span class="card-tag">GridSearchCV</span>
-          <span class="card-tag">joblib</span>
-          <span class="card-tag">regex</span>
-        </div>
-        <div class="card-footer">
-          <a class="card-link" href="https://github.com/Hi22L/casablanca-house-price" target="_blank">View on GitHub →</a>
-        </div>
-      </div>
+<!-- Regression -->
+<div class="card">
+<div class="card-header">
+<span class="card-title">Casablanca House Price Prediction</span>
+<span class="badge badge-blue">Regression</span>
+</div>
+<p class="card-desc">
+Predicts apartment and house prices in Casablanca from scraped real estate listings. Built a full ML pipeline with regex-based feature extraction, neighborhood price signals, and a Stacking Regressor combining Linear Regression, Ridge, and Decision Tree models. Includes an interactive Streamlit app for live predictions.
+</p>
+<div class="arch-diagram">
+<svg viewBox="0 0 640 100">
+<rect x="6" y="28" width="136" height="44" rx="8" fill="var(--blue-bg)"/>
+<rect x="170" y="28" width="136" height="44" rx="8" fill="var(--blue-bg)"/>
+<rect x="334" y="28" width="136" height="44" rx="8" fill="var(--blue-bg)"/>
+<rect x="498" y="28" width="136" height="44" rx="8" fill="var(--blue-bg)"/>
+<text x="74" y="54" text-anchor="middle" class="arch-label" fill="var(--blue-text)">Scraped Listings</text>
+<text x="238" y="54" text-anchor="middle" class="arch-label" fill="var(--blue-text)">Feature Engineering</text>
+<text x="402" y="54" text-anchor="middle" class="arch-label" fill="var(--blue-text)">Stacking Regressor</text>
+<text x="566" y="54" text-anchor="middle" class="arch-label" fill="var(--blue-text)">Streamlit App</text>
+<line x1="142" y1="50" x2="162" y2="50" stroke="var(--text-faint)" stroke-width="1.5"/>
+<polygon points="162,44 170,50 162,56" fill="var(--text-faint)"/>
+<line x1="306" y1="50" x2="326" y2="50" stroke="var(--text-faint)" stroke-width="1.5"/>
+<polygon points="326,44 334,50 326,56" fill="var(--text-faint)"/>
+<line x1="470" y1="50" x2="490" y2="50" stroke="var(--text-faint)" stroke-width="1.5"/>
+<polygon points="490,44 498,50 490,56" fill="var(--text-faint)"/>
+</svg>
+</div>
+<div class="metrics">
+<div class="metric">
+<div class="metric-val">Stacking</div>
+<div class="metric-label">Best model</div>
+</div>
+<div class="metric">
+<div class="metric-val">MAE</div>
+<div class="metric-label">Optimized metric</div>
+</div>
+<div class="metric">
+<div class="metric-val">5-fold CV</div>
+<div class="metric-label">Validation strategy</div>
+</div>
+</div>
+<div class="card-tags">
+<span class="card-tag">pandas</span>
+<span class="card-tag">scikit-learn</span>
+<span class="card-tag">Streamlit</span>
+<span class="card-tag">GridSearchCV</span>
+<span class="card-tag">joblib</span>
+<span class="card-tag">regex</span>
+</div>
+<div class="card-footer">
+<a class="card-link" href="https://github.com/Hi22L/casablanca-house-price" target="_blank">View on GitHub →</a>
+</div>
+</div>
 
-      <!-- Segmentation -->
-      <div class="card">
-        <div class="card-header">
-          <span class="card-title">Skin Lesion Segmentation — Mask R-CNN</span>
-          <span class="badge badge-teal">Segmentation</span>
-        </div>
-        <p class="card-desc">
-          Fine-tuned a Mask R-CNN model with a ResNet-50 FPN backbone on the ISIC 2016 challenge dataset to automatically segment skin lesions from dermoscopic images. Generates pixel-level masks that could support early melanoma detection in clinical workflows.
-        </p>
-        <div class="metrics">
-          <div class="metric">
-            <div class="metric-val">85.9%</div>
-            <div class="metric-label">Mean IoU</div>
-          </div>
-          <div class="metric">
-            <div class="metric-val">92.6%</div>
-            <div class="metric-label">Precision</div>
-          </div>
-          <div class="metric">
-            <div class="metric-val">95.6%</div>
-            <div class="metric-label">Accuracy</div>
-          </div>
-        </div>
-        <div class="card-tags">
-          <span class="card-tag">PyTorch</span>
-          <span class="card-tag">torchvision</span>
-          <span class="card-tag">Mask R-CNN</span>
-          <span class="card-tag">ResNet-50 FPN</span>
-          <span class="card-tag">ISIC 2016</span>
-          <span class="card-tag">OpenCV</span>
-        </div>
-        <div class="card-footer">
-          <a class="card-link" href="https://github.com/Hi22L/skin-lesion-maskrcnn" target="_blank">View on GitHub →</a>
-        </div>
-      </div>
+<!-- Segmentation -->
+<div class="card">
+<div class="card-header">
+<span class="card-title">Skin Lesion Segmentation — Mask R-CNN</span>
+<span class="badge badge-teal">Segmentation</span>
+</div>
+<p class="card-desc">
+Fine-tuned a Mask R-CNN model with a ResNet-50 FPN backbone on the ISIC 2016 challenge dataset to automatically segment skin lesions from dermoscopic images. Generates pixel-level masks that could support early melanoma detection in clinical workflows.
+</p>
+<div class="arch-diagram">
+<svg viewBox="0 0 640 100">
+<rect x="6" y="28" width="136" height="44" rx="8" fill="var(--teal-bg)"/>
+<rect x="170" y="28" width="136" height="44" rx="8" fill="var(--teal-bg)"/>
+<rect x="334" y="28" width="136" height="44" rx="8" fill="var(--teal-bg)"/>
+<rect x="498" y="28" width="136" height="44" rx="8" fill="var(--teal-bg)"/>
+<text x="74" y="54" text-anchor="middle" class="arch-label" fill="var(--teal-text)">ISIC 2016 Images</text>
+<text x="238" y="54" text-anchor="middle" class="arch-label" fill="var(--teal-text)">ResNet-50 FPN</text>
+<text x="402" y="54" text-anchor="middle" class="arch-label" fill="var(--teal-text)">Mask R-CNN</text>
+<text x="566" y="54" text-anchor="middle" class="arch-label" fill="var(--teal-text)">Predicted Mask</text>
+<line x1="142" y1="50" x2="162" y2="50" stroke="var(--text-faint)" stroke-width="1.5"/>
+<polygon points="162,44 170,50 162,56" fill="var(--text-faint)"/>
+<line x1="306" y1="50" x2="326" y2="50" stroke="var(--text-faint)" stroke-width="1.5"/>
+<polygon points="326,44 334,50 326,56" fill="var(--text-faint)"/>
+<line x1="470" y1="50" x2="490" y2="50" stroke="var(--text-faint)" stroke-width="1.5"/>
+<polygon points="490,44 498,50 490,56" fill="var(--text-faint)"/>
+</svg>
+</div>
+<div class="metrics">
+<div class="metric">
+<div class="metric-val">85.9%</div>
+<div class="metric-label">Mean IoU</div>
+</div>
+<div class="metric">
+<div class="metric-val">92.6%</div>
+<div class="metric-label">Precision</div>
+</div>
+<div class="metric">
+<div class="metric-val">95.6%</div>
+<div class="metric-label">Accuracy</div>
+</div>
+</div>
+<div class="card-tags">
+<span class="card-tag">PyTorch</span>
+<span class="card-tag">torchvision</span>
+<span class="card-tag">Mask R-CNN</span>
+<span class="card-tag">ResNet-50 FPN</span>
+<span class="card-tag">ISIC 2016</span>
+<span class="card-tag">OpenCV</span>
+</div>
+<div class="card-footer">
+<a class="card-link" href="https://github.com/Hi22L/skin-lesion-maskrcnn" target="_blank">View on GitHub →</a>
+</div>
+</div>
 
-    </div>
+<!-- Connect 5 -->
+<div class="card">
+<div class="card-header">
+<span class="card-title">Connect 5 — Minimax &amp; Alpha-Beta Pruning</span>
+<span class="badge badge-purple">Game AI</span>
+</div>
+<p class="card-desc">
+A Connect 5 game featuring an AI opponent built on the Minimax algorithm with Alpha-Beta pruning for efficient game-tree search. Combines a Python game engine with a React front end, plus a tournament mode for running automated AI-vs-AI matches.
+</p>
+<div class="arch-diagram">
+<svg viewBox="0 0 640 100">
+<rect x="6" y="28" width="136" height="44" rx="8" fill="var(--purple-bg)"/>
+<rect x="170" y="28" width="136" height="44" rx="8" fill="var(--purple-bg)"/>
+<rect x="334" y="28" width="136" height="44" rx="8" fill="var(--purple-bg)"/>
+<rect x="498" y="28" width="136" height="44" rx="8" fill="var(--purple-bg)"/>
+<text x="74" y="54" text-anchor="middle" class="arch-label" fill="var(--purple-text)">Game State</text>
+<text x="238" y="46" text-anchor="middle" class="arch-label" fill="var(--purple-text)">Minimax +</text>
+<text x="238" y="60" text-anchor="middle" class="arch-label" fill="var(--purple-text)">α-β Pruning</text>
+<text x="402" y="46" text-anchor="middle" class="arch-label" fill="var(--purple-text)">Best Move</text>
+<text x="402" y="60" text-anchor="middle" class="arch-label" fill="var(--purple-text)">Selected</text>
+<text x="566" y="54" text-anchor="middle" class="arch-label" fill="var(--purple-text)">React UI</text>
+<line x1="142" y1="50" x2="162" y2="50" stroke="var(--text-faint)" stroke-width="1.5"/>
+<polygon points="162,44 170,50 162,56" fill="var(--text-faint)"/>
+<line x1="306" y1="50" x2="326" y2="50" stroke="var(--text-faint)" stroke-width="1.5"/>
+<polygon points="326,44 334,50 326,56" fill="var(--text-faint)"/>
+<line x1="470" y1="50" x2="490" y2="50" stroke="var(--text-faint)" stroke-width="1.5"/>
+<polygon points="490,44 498,50 490,56" fill="var(--text-faint)"/>
+</svg>
+</div>
+<div class="metrics">
+<div class="metric">
+<div class="metric-val">Minimax</div>
+<div class="metric-label">Core algorithm</div>
+</div>
+<div class="metric">
+<div class="metric-val">Alpha-Beta</div>
+<div class="metric-label">Pruning strategy</div>
+</div>
+<div class="metric">
+<div class="metric-val">Tournament</div>
+<div class="metric-label">AI vs AI mode</div>
+</div>
+</div>
+<div class="card-tags">
+<span class="card-tag">Python</span>
+<span class="card-tag">React</span>
+<span class="card-tag">Minimax</span>
+<span class="card-tag">Alpha-Beta Pruning</span>
+<span class="card-tag">pygame</span>
+</div>
+<div class="card-footer">
+<a class="card-link" href="https://github.com/Hi22L" target="_blank">View on GitHub →</a>
+</div>
+</div>
 
-    <hr>
+<!-- RAG Darija -->
+<div class="card">
+<div class="card-header">
+<span class="card-title">RAG Darija — Moroccan Dialect Q&amp;A</span>
+<span class="badge badge-amber">NLP · RAG</span>
+</div>
+<p class="card-desc">
+A Retrieval-Augmented Generation system answering questions in Moroccan Darija, built on Atlas-Chat-2B with ChromaDB for vector storage and CAMeL-BERT for embeddings. Iterated on strict prompting and relevance thresholds to keep answers grounded, with a Gradio interface for live interaction.
+</p>
+<div class="arch-diagram">
+<svg viewBox="0 0 640 100">
+<rect x="6" y="28" width="103.2" height="44" rx="8" fill="var(--amber-bg)"/>
+<rect x="137.2" y="28" width="103.2" height="44" rx="8" fill="var(--amber-bg)"/>
+<rect x="268.4" y="28" width="103.2" height="44" rx="8" fill="var(--amber-bg)"/>
+<rect x="399.6" y="28" width="103.2" height="44" rx="8" fill="var(--amber-bg)"/>
+<rect x="530.8" y="28" width="103.2" height="44" rx="8" fill="var(--amber-bg)"/>
+<text x="57.6" y="46" text-anchor="middle" class="arch-label" fill="var(--amber-text)">Question</text>
+<text x="57.6" y="60" text-anchor="middle" class="arch-label" fill="var(--amber-text)">(Darija)</text>
+<text x="188.8" y="46" text-anchor="middle" class="arch-label" fill="var(--amber-text)">CAMeL-BERT</text>
+<text x="188.8" y="60" text-anchor="middle" class="arch-label" fill="var(--amber-text)">Embedding</text>
+<text x="320.0" y="46" text-anchor="middle" class="arch-label" fill="var(--amber-text)">ChromaDB</text>
+<text x="320.0" y="60" text-anchor="middle" class="arch-label" fill="var(--amber-text)">Retrieval</text>
+<text x="451.2" y="54" text-anchor="middle" class="arch-label" fill="var(--amber-text)">Atlas-Chat-2B</text>
+<text x="582.4" y="54" text-anchor="middle" class="arch-label" fill="var(--amber-text)">Answer</text>
+<line x1="109.2" y1="50" x2="129.2" y2="50" stroke="var(--text-faint)" stroke-width="1.5"/>
+<polygon points="129.2,44 137.2,50 129.2,56" fill="var(--text-faint)"/>
+<line x1="240.4" y1="50" x2="260.4" y2="50" stroke="var(--text-faint)" stroke-width="1.5"/>
+<polygon points="260.4,44 268.4,50 260.4,56" fill="var(--text-faint)"/>
+<line x1="371.6" y1="50" x2="391.6" y2="50" stroke="var(--text-faint)" stroke-width="1.5"/>
+<polygon points="391.6,44 399.6,50 391.6,56" fill="var(--text-faint)"/>
+<line x1="502.8" y1="50" x2="522.8" y2="50" stroke="var(--text-faint)" stroke-width="1.5"/>
+<polygon points="522.8,44 530.8,50 522.8,56" fill="var(--text-faint)"/>
+</svg>
+</div>
+<div class="metrics">
+<div class="metric">
+<div class="metric-val">Atlas-Chat-2B</div>
+<div class="metric-label">LLM backbone</div>
+</div>
+<div class="metric">
+<div class="metric-val">CAMeL-BERT</div>
+<div class="metric-label">Embeddings</div>
+</div>
+<div class="metric">
+<div class="metric-val">ChromaDB</div>
+<div class="metric-label">Vector store</div>
+</div>
+</div>
+<div class="card-tags">
+<span class="card-tag">Atlas-Chat</span>
+<span class="card-tag">ChromaDB</span>
+<span class="card-tag">CAMeL-BERT</span>
+<span class="card-tag">Gradio</span>
+<span class="card-tag">Google Colab</span>
+</div>
+<div class="card-footer">
+<a class="card-link" href="https://github.com/Hi22L" target="_blank">View on GitHub →</a>
+</div>
+</div>
 
-    <!-- Contact -->
-    <div class="contact">
-      <div class="section-title">Contact</div>
-      <div class="contact-links">
-        <a class="link-btn" href="https://github.com/Hi22L" target="_blank">GitHub</a>
-        <a class="link-btn" href="https://www.linkedin.com/in/hiba-lafkir-20bb97331/" target="_blank">LinkedIn</a>
-        <a class="link-btn" href="mailto:hiba05lafkir@gmail.com">hiba05lafkir@gmail.com</a>
-      </div>
-    </div>
+<!-- VAE / BSS -->
+<div class="card">
+<div class="card-header">
+<span class="card-title">VAE for Blind Source Separation</span>
+<span class="badge badge-rose">Deep Learning</span>
+</div>
+<p class="card-desc">
+A Variational Autoencoder pipeline for Blind Source Separation, exploring progressive-compression architectures with power-of-2 layer sizing. Evaluated separation quality using Pearson correlation between recovered and true source signals.
+</p>
+<div class="arch-diagram">
+<svg viewBox="0 0 640 100">
+<rect x="6" y="28" width="103.2" height="44" rx="8" fill="var(--rose-bg)"/>
+<rect x="137.2" y="28" width="103.2" height="44" rx="8" fill="var(--rose-bg)"/>
+<rect x="268.4" y="28" width="103.2" height="44" rx="8" fill="var(--rose-bg)"/>
+<rect x="399.6" y="28" width="103.2" height="44" rx="8" fill="var(--rose-bg)"/>
+<rect x="530.8" y="28" width="103.2" height="44" rx="8" fill="var(--rose-bg)"/>
+<text x="57.6" y="54" text-anchor="middle" class="arch-label" fill="var(--rose-text)">Mixed Signals</text>
+<text x="188.8" y="54" text-anchor="middle" class="arch-label" fill="var(--rose-text)">Encoder</text>
+<text x="320.0" y="54" text-anchor="middle" class="arch-label" fill="var(--rose-text)">Latent Space</text>
+<text x="451.2" y="54" text-anchor="middle" class="arch-label" fill="var(--rose-text)">Decoder</text>
+<text x="582.4" y="46" text-anchor="middle" class="arch-label" fill="var(--rose-text)">Separated</text>
+<text x="582.4" y="60" text-anchor="middle" class="arch-label" fill="var(--rose-text)">Sources</text>
+<line x1="109.2" y1="50" x2="129.2" y2="50" stroke="var(--text-faint)" stroke-width="1.5"/>
+<polygon points="129.2,44 137.2,50 129.2,56" fill="var(--text-faint)"/>
+<line x1="240.4" y1="50" x2="260.4" y2="50" stroke="var(--text-faint)" stroke-width="1.5"/>
+<polygon points="260.4,44 268.4,50 260.4,56" fill="var(--text-faint)"/>
+<line x1="371.6" y1="50" x2="391.6" y2="50" stroke="var(--text-faint)" stroke-width="1.5"/>
+<polygon points="391.6,44 399.6,50 391.6,56" fill="var(--text-faint)"/>
+<line x1="502.8" y1="50" x2="522.8" y2="50" stroke="var(--text-faint)" stroke-width="1.5"/>
+<polygon points="522.8,44 530.8,50 522.8,56" fill="var(--text-faint)"/>
+</svg>
+</div>
+<div class="metrics">
+<div class="metric">
+<div class="metric-val">VAE</div>
+<div class="metric-label">Model type</div>
+</div>
+<div class="metric">
+<div class="metric-val">Pearson r</div>
+<div class="metric-label">Evaluation metric</div>
+</div>
+<div class="metric">
+<div class="metric-val">Progressive</div>
+<div class="metric-label">Layer compression</div>
+</div>
+</div>
+<div class="card-tags">
+<span class="card-tag">PyTorch</span>
+<span class="card-tag">Variational Autoencoder</span>
+<span class="card-tag">Signal Processing</span>
+<span class="card-tag">NumPy</span>
+</div>
+<div class="card-footer">
+<a class="card-link" href="https://github.com/Hi22L" target="_blank">View on GitHub →</a>
+</div>
+</div>
 
-    <div class="footer">Hiba Lafkir · Data Science Student · 2025</div>
+<!-- Data Warehouse -->
+<div class="card">
+<div class="card-header">
+<span class="card-title">Data Warehouse Pipeline — Medallion Architecture</span>
+<span class="badge badge-blue">Big Data</span>
+</div>
+<p class="card-desc">
+An end-to-end Data Warehouse pipeline built on MinIO using the Medallion architecture (Bronze/Silver/Gold layers), with Apache Spark handling large-scale transformations and a Kimball-style dimensional model powering the final analytics layer.
+</p>
+<div class="arch-diagram">
+<svg viewBox="0 0 640 100">
+<rect x="6" y="28" width="103.2" height="44" rx="8" fill="var(--blue-bg)"/>
+<rect x="137.2" y="28" width="103.2" height="44" rx="8" fill="var(--blue-bg)"/>
+<rect x="268.4" y="28" width="103.2" height="44" rx="8" fill="var(--blue-bg)"/>
+<rect x="399.6" y="28" width="103.2" height="44" rx="8" fill="var(--blue-bg)"/>
+<rect x="530.8" y="28" width="103.2" height="44" rx="8" fill="var(--blue-bg)"/>
+<text x="57.6" y="54" text-anchor="middle" class="arch-label" fill="var(--blue-text)">Raw Data</text>
+<text x="188.8" y="54" text-anchor="middle" class="arch-label" fill="var(--blue-text)">Bronze Layer</text>
+<text x="320.0" y="46" text-anchor="middle" class="arch-label" fill="var(--blue-text)">Silver</text>
+<text x="320.0" y="60" text-anchor="middle" class="arch-label" fill="var(--blue-text)">(Spark)</text>
+<text x="451.2" y="54" text-anchor="middle" class="arch-label" fill="var(--blue-text)">Gold Layer</text>
+<text x="582.4" y="46" text-anchor="middle" class="arch-label" fill="var(--blue-text)">Kimball</text>
+<text x="582.4" y="60" text-anchor="middle" class="arch-label" fill="var(--blue-text)">Model</text>
+<line x1="109.2" y1="50" x2="129.2" y2="50" stroke="var(--text-faint)" stroke-width="1.5"/>
+<polygon points="129.2,44 137.2,50 129.2,56" fill="var(--text-faint)"/>
+<line x1="240.4" y1="50" x2="260.4" y2="50" stroke="var(--text-faint)" stroke-width="1.5"/>
+<polygon points="260.4,44 268.4,50 260.4,56" fill="var(--text-faint)"/>
+<line x1="371.6" y1="50" x2="391.6" y2="50" stroke="var(--text-faint)" stroke-width="1.5"/>
+<polygon points="391.6,44 399.6,50 391.6,56" fill="var(--text-faint)"/>
+<line x1="502.8" y1="50" x2="522.8" y2="50" stroke="var(--text-faint)" stroke-width="1.5"/>
+<polygon points="522.8,44 530.8,50 522.8,56" fill="var(--text-faint)"/>
+</svg>
+</div>
+<div class="metrics">
+<div class="metric">
+<div class="metric-val">Medallion</div>
+<div class="metric-label">Architecture</div>
+</div>
+<div class="metric">
+<div class="metric-val">Kimball</div>
+<div class="metric-label">Modeling approach</div>
+</div>
+<div class="metric">
+<div class="metric-val">Spark</div>
+<div class="metric-label">Processing engine</div>
+</div>
+</div>
+<div class="card-tags">
+<span class="card-tag">Apache Spark</span>
+<span class="card-tag">MinIO</span>
+<span class="card-tag">Kimball</span>
+<span class="card-tag">ETL</span>
+<span class="card-tag">YARN</span>
+</div>
+<div class="card-footer">
+<a class="card-link" href="https://github.com/Hi22L" target="_blank">View on GitHub →</a>
+</div>
+</div>
 
-  </div>
+</div>
+
+<hr>
+
+<!-- Contact -->
+<div class="contact">
+<div class="section-title">Contact</div>
+<div class="contact-links">
+<a class="link-btn" href="https://github.com/Hi22L" target="_blank">GitHub</a>
+<a class="link-btn" href="https://www.linkedin.com/in/hiba-lafkir-20bb97331/" target="_blank">LinkedIn</a>
+<a class="link-btn" href="mailto:hiba05lafkir@gmail.com">hiba05lafkir@gmail.com</a>
+</div>
+</div>
+
+<div class="footer">Hiba Lafkir · Data Science Student · 2025</div>
+</div>
 </body>
 </html>
